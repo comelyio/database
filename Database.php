@@ -30,9 +30,6 @@ class Database extends PDO implements ComponentInterface
     public const SQLITE = 1002;
     public const PGSQL = 1003;
 
-    private const QUERY_FETCH = 2001;
-    private const QUERY_EXEC = 2002;
-
     /** @var Queries */
     private $queries;
     /** @var ServerCredentials */
