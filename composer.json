@@ -1,0 +1,23 @@
+{
+  "name": "comelyio/database",
+  "description": "Comely IO Component: Database",
+  "keywords": ["database", "comely", "comelyio", "comely.io", "comely2"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Furqan A. Siddiqui",
+      "email": "hello@furqansiddiqui.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.1.0",
+    "ext-pdo": "*",
+    "comelyio/comely-kernel": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Comely\\IO\\Database\\": ""
+    }
+  },
+  "minimum-stability": "dev"
+}
