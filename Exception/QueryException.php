@@ -15,22 +15,24 @@ declare(strict_types=1);
 namespace Comely\IO\Database\Exception;
 
 use Comely\IO\Database\Queries\Query;
-use Comely\Kernel\Exception\ComelyException;
+use Throwable;
 
 /**
- * Class DatabaseException
+ * Class QueryException
  * @package Comely\IO\Database\Exception
  */
-class DatabaseException extends ComelyException
+class QueryException extends DatabaseException
 {
-    /** @var null|Query */
-    protected $query;
-
     /**
-     * @return Query|null
+     * QueryException constructor.
+     * @param Query $query
+     * @param string $message
+     * @param int $code
+     * @param Throwable|null $previous
      */
-    public function query(): ?Query
+    public function __construct(Query $query, string $message = "", int $code = 0, Throwable $previous = null)
     {
-        return $this->query;
+        $this->query = $query;
+        parent::__construct($message, $code, $previous);
     }
 }

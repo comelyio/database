@@ -14,23 +14,10 @@ declare(strict_types=1);
 
 namespace Comely\IO\Database\Exception;
 
-use Comely\IO\Database\Queries\Query;
-use Comely\Kernel\Exception\ComelyException;
-
 /**
- * Class DatabaseException
+ * Class ConnectionException
  * @package Comely\IO\Database\Exception
  */
-class DatabaseException extends ComelyException
+class ConnectionException extends DatabaseException
 {
-    /** @var null|Query */
-    protected $query;
-
-    /**
-     * @return Query|null
-     */
-    public function query(): ?Query
-    {
-        return $this->query;
-    }
 }
