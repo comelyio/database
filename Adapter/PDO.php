@@ -17,6 +17,7 @@ namespace Comely\IO\Database\Adapter;
 use Comely\IO\Database\Exception\AdapterException;
 use Comely\IO\Database\Exception\ConnectionException;
 use Comely\IO\Database\Exception\QueryException;
+use Comely\IO\Database\Queries;
 use Comely\IO\Database\Queries\Query;
 
 /**
@@ -32,6 +33,8 @@ abstract class PDO
     private $pdo;
     /** @var bool */
     private $inTransaction;
+    /** @var Queries */
+    private $queries;
 
     /**
      * PDO constructor.
@@ -50,6 +53,9 @@ abstract class PDO
         } catch (\PDOException $e) {
             throw new ConnectionException($e->getMessage(), $e->getCode());
         }
+
+        // Build Queries Index
+        $this->queries = new Queries();
     }
 
     /**
@@ -58,6 +64,14 @@ abstract class PDO
     public function adapter(): \PDO
     {
         return $this->adapter();
+    }
+
+    /**
+     * @return Queries
+     */
+    public function queries(): Queries
+    {
+        return $this->queries;
     }
 
     /**
@@ -183,6 +197,9 @@ abstract class PDO
      */
     public function run(int $type, Query $query)
     {
+        // Append into Queries
+        $this->queries->append($query);
+
         // Mark query as executed
         $query->executed = true;
 
