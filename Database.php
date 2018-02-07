@@ -30,8 +30,6 @@ class Database extends PDO implements ComponentInterface
     public const SQLITE = 1002;
     public const PGSQL = 1003;
 
-    /** @var Queries */
-    private $queries;
     /** @var ServerCredentials */
     private $server;
 
@@ -60,9 +58,14 @@ class Database extends PDO implements ComponentInterface
         $this->server = $credentials;
         // Remove sensitive information from credentials
         unset($this->server->username, $this->server->password);
+    }
 
-        // Build Queries Index
-        $this->queries = new Queries();
+    /**
+     * @return ServerCredentials
+     */
+    public function connection(): ServerCredentials
+    {
+        return $this->server;
     }
 
     /**
