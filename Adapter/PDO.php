@@ -25,8 +25,8 @@ use Comely\IO\Database\Queries\Query;
  */
 abstract class PDO
 {
-    protected const QUERY_FETCH = 2001;
-    protected const QUERY_EXEC = 2002;
+    public const QUERY_FETCH = 2001;
+    public const QUERY_EXEC = 2002;
 
     /** @var \PDO */
     private $pdo;
@@ -179,8 +179,9 @@ abstract class PDO
      * @param int $type
      * @param Query $query
      * @return array|bool|null|int
+     * @throws QueryException
      */
-    protected function run(int $type, Query $query)
+    public function run(int $type, Query $query)
     {
         // Mark query as executed
         $query->executed = true;
@@ -213,7 +214,7 @@ abstract class PDO
                     $this->queryError($query, 'Fetch query failed');
                 }
 
-                $query->rows = count($rows);
+                $query->rows = $stmnt->rowCount();
             } else {
                 // Execute Query
                 $query->rows = $stmnt->rowCount();
