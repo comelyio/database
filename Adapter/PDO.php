@@ -178,7 +178,7 @@ abstract class PDO
     /**
      * @param int $type
      * @param Query $query
-     * @return array|bool|null
+     * @return array|bool|null|int
      */
     protected function run(int $type, Query $query)
     {

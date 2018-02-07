@@ -78,9 +78,9 @@ class Database extends PDO implements ComponentInterface
     /**
      * @param string $query
      * @param array ...$data
-     * @return int
+     * @return bool
      */
-    public function exec(string $query, ...$data): int
+    public function exec(string $query, ...$data): bool
     {
         return $this->run(self::QUERY_EXEC, new Query($query, $data));
     }
