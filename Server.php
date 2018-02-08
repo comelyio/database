@@ -115,7 +115,7 @@ class Server
         }
 
         // Database name
-        if (!$this->name) {
+        if (!$this->database) {
             throw new ConnectionException(
                 sprintf('Database name must be specified for driver "%s"', $credentials->driverName)
             );
