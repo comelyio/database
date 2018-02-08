@@ -111,7 +111,7 @@ class Server
     private function dsn(ServerCredentials $credentials): string
     {
         if ($credentials->driver === Database::SQLITE) {
-            return sprintf('sqlite:%s', $this->name);
+            return sprintf('sqlite:%s', $this->database);
         }
 
         // Database name
@@ -122,7 +122,7 @@ class Server
         }
 
         $hostname = $this->port ? sprintf('%s;port=%d', $this->host, $this->port) : $this->host;
-        return sprintf('%s:host=%s;dbname=%s;charset=utf8mb4', $credentials->driverName, $hostname, $this->name);
+        return sprintf('%s:host=%s;dbname=%s;charset=utf8mb4', $credentials->driverName, $hostname, $this->database);
     }
 
     /**
