@@ -16,6 +16,7 @@ namespace Comely\IO\Database;
 
 use Comely\IO\Database\Adapter\PDO;
 use Comely\IO\Database\Adapter\ServerCredentials;
+use Comely\IO\Database\Exception\DatabaseException;
 use Comely\IO\Database\Queries\Query;
 use Comely\IO\Database\Queries\QueryBuilder;
 use Comely\Kernel\Extend\ComponentInterface;
@@ -23,6 +24,10 @@ use Comely\Kernel\Extend\ComponentInterface;
 /**
  * Class Database
  * @package Comely\IO\Database
+ * @method static Server MySQL
+ * @method static Server SQLite
+ * @method static Server PgSQL
+ * @method static Server PostgreSQL
  */
 class Database extends PDO implements ComponentInterface
 {
@@ -41,6 +46,26 @@ class Database extends PDO implements ComponentInterface
     public static function Server(int $driver): Server
     {
         return new Server($driver);
+    }
+
+    /**
+     * @param $method
+     * @param $arguments
+     * @return bool|Server
+     */
+    public static function __callStatic($method, $arguments)
+    {
+        switch (strtolower($method)) {
+            case "mysql":
+                return new Server(self::MYSQL);
+            case "sqlite":
+                return new Server(self::SQLITE);
+            case "pgsql":
+            case "postgresql":
+                return new Server(self::PGSQL);
+        }
+
+        throw new DatabaseException('Only valid database adapters may be called statically');
     }
 
     /**
