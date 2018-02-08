@@ -43,6 +43,10 @@ abstract class PDO
      */
     public function __construct(ServerCredentials $server)
     {
+        if(!in_array($server->driverName, \PDO::getAvailableDrivers())) {
+            throw new ConnectionException(sprintf('"%s" is not available as PDO driver', $server->driverName));
+        }
+
         $options = [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION];
         if ($server->persistent === true) {
             $options[\PDO::ATTR_PERSISTENT] = true;
