@@ -50,7 +50,7 @@ class Database extends PDO implements ComponentInterface
     public function __construct(Server $server)
     {
         // Get server credentials
-        $credentials = $server->getCredentials();
+        $credentials = $server->getServerCredentials();
         // Construct PDO adapter
         parent::__construct($credentials);
 
