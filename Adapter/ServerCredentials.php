@@ -26,6 +26,8 @@ class ServerCredentials
     public $driverName;
     /** @var string */
     public $dsn;
+    /** @var string */
+    public $database;
     /** @var null|string */
     public $username;
     /** @var null|string */
