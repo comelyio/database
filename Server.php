@@ -20,6 +20,7 @@ use Comely\IO\Database\Exception\ConnectionException;
 /**
  * Class Server
  * @package Comely\IO\Database
+ * @method ServerCredentials getServerCredentials
  */
 class Server
 {
@@ -32,7 +33,7 @@ class Server
     /** @var int */
     private $driver;
     /** @var null|string */
-    private $name;
+    private $database;
     /** @var null|string */
     private $host;
     /** @var null|int */
@@ -47,6 +48,7 @@ class Server
     /**
      * Server constructor.
      * @param int $driver
+     * @throws ConnectionException
      */
     public function __construct(int $driver)
     {
@@ -60,28 +62,45 @@ class Server
     }
 
     /**
-     * @return Database
-     */
-    public function connect(): Database
-    {
-        return new Database($this);
-    }
-
-    /**
      * @return ServerCredentials
      * @throws ConnectionException
      */
-    public function getCredentials(): ServerCredentials
+    private function serverCredentials(): ServerCredentials
     {
         $credentials = new ServerCredentials();
         $credentials->driver = $this->driver;
         $credentials->driverName = $this->driverName();
         $credentials->dsn = $this->dsn($credentials);
+        $credentials->database = $this->database;
         $credentials->username = $this->user;
         $credentials->password = $this->pass;
         $credentials->persistent = $this->persistent;
 
         return $credentials;
+    }
+
+    /**
+     * @param $method
+     * @param $arguments
+     * @return bool|ServerCredentials
+     * @throws ConnectionException
+     */
+    public function __call($method, $arguments)
+    {
+        switch ($method) {
+            case "getServerCredentials":
+                return $this->serverCredentials();
+        }
+
+        return false;
+    }
+
+    /**
+     * @return Database
+     */
+    public function connect(): Database
+    {
+        return new Database($this);
     }
 
     /**
@@ -129,9 +148,9 @@ class Server
      * @param string $databaseName
      * @return Server
      */
-    public function name(string $databaseName): self
+    public function database(string $databaseName): self
     {
-        $this->name = $databaseName;
+        $this->database = $databaseName;
         return $this;
     }
 
@@ -156,21 +175,13 @@ class Server
     }
 
     /**
-     * @param string $user
-     * @return Server
-     */
-    public function username(string $user): self
-    {
-        $this->user = $user;
-        return $this;
-    }
-
-    /**
+     * @param string $username
      * @param string $password
      * @return Server
      */
-    public function password(string $password): self
+    public function credentials(string $username, string $password): self
     {
+        $this->user = $username;
         $this->pass = $password;
         return $this;
     }
