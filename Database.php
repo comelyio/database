@@ -123,4 +123,12 @@ class Database extends PDO implements ComponentInterface
     {
         return new QueryBuilder($this);
     }
+
+    /**
+     * @return Query|null
+     */
+    public function lastQuery(): ?Query
+    {
+        return $this->queries()->last();
+    }
 }
