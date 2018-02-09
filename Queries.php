@@ -47,6 +47,15 @@ class Queries implements \Iterator
     }
 
     /**
+     * @return Query|null
+     */
+    public function last(): ?Query
+    {
+        $lastQuery = end($this->queries);
+        return $lastQuery ? $lastQuery : null;
+    }
+
+    /**
      * @return void
      */
     public function rewind(): void
