@@ -236,6 +236,7 @@ abstract class PDO
                 }
 
                 $query->rows = $stmnt->rowCount();
+                return $rows;
             } else {
                 // Execute Query
                 $query->rows = $stmnt->rowCount();
@@ -246,7 +247,5 @@ abstract class PDO
             $this->queryError($query, $e->getMessage());
             return null; // IDE specific
         }
-
-        return false;  // IDE specific
     }
 }
