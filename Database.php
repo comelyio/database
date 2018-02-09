@@ -17,6 +17,7 @@ namespace Comely\IO\Database;
 use Comely\IO\Database\Adapter\PDO;
 use Comely\IO\Database\Adapter\ServerCredentials;
 use Comely\IO\Database\Exception\DatabaseException;
+use Comely\IO\Database\Exception\QueryException;
 use Comely\IO\Database\Queries\Query;
 use Comely\IO\Database\Queries\QueryBuilder;
 use Comely\Kernel\Extend\ComponentInterface;
@@ -97,6 +98,7 @@ class Database extends PDO implements ComponentInterface
      * @param string $query
      * @param array ...$data
      * @return array|null
+     * @throws QueryException
      */
     public function fetch(string $query, ...$data): ?array
     {
@@ -107,6 +109,7 @@ class Database extends PDO implements ComponentInterface
      * @param string $query
      * @param array ...$data
      * @return bool
+     * @throws QueryException
      */
     public function exec(string $query, ...$data): bool
     {
