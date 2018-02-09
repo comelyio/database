@@ -97,10 +97,10 @@ class Database extends PDO implements ComponentInterface
     /**
      * @param string $query
      * @param array ...$data
-     * @return array|null
+     * @return array
      * @throws QueryException
      */
-    public function fetch(string $query, ...$data): ?array
+    public function fetch(string $query, ...$data): array
     {
         return $this->run(self::QUERY_FETCH, new Query($query, $data));
     }
