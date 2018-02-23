@@ -70,11 +70,11 @@ class Server
         $credentials = new ServerCredentials();
         $credentials->driver = $this->driver;
         $credentials->driverName = $this->driverName();
-        $credentials->dsn = $this->dsn($credentials);
         $credentials->database = $this->database;
         $credentials->username = $this->user;
         $credentials->password = $this->pass;
         $credentials->persistent = $this->persistent;
+        $credentials->dsn = $this->dsn($credentials);
 
         return $credentials;
     }
