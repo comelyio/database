@@ -203,7 +203,7 @@ class QueryBuilder
         // Find total rows
         $totalRows = $this->db->fetch(
             sprintf('SELECT' . ' count(*) FROM `%s` WHERE %s', $this->tableName, $this->whereClause),
-            ...$this->queryData
+            $this->queryData
         );
         $totalRows = $totalRows[0]["count(*)"] ?? 0;
         if ($totalRows) {
@@ -220,7 +220,7 @@ class QueryBuilder
 
             $pagination->totalRows = $totalRows;
             $pagination->totalPages = ceil($totalRows / $this->selectLimit);
-            $pagination->rows = $this->db->fetch($rowsQuery, ...$this->queryData);
+            $pagination->rows = $this->db->fetch($rowsQuery, $this->queryData);
             $pagination->count = count($pagination->rows);
 
             // Build pages prop.
