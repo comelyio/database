@@ -173,7 +173,7 @@ class QueryBuilder
         // Query
         $query = new Query(
             sprintf(
-                'SELECT' . ' %s FROM `%s` WHERE %s',
+                'SELECT' . ' %s FROM `%s` WHERE %s%s%s%s',
                 $this->selectColumns,
                 $this->tableName,
                 $this->whereClause,
@@ -280,7 +280,7 @@ class QueryBuilder
     }
 
     /**
-     * @param string[] ...$cols
+     * @param string ...$cols
      * @return QueryBuilder
      */
     public function columns(string ...$cols): self
@@ -292,7 +292,7 @@ class QueryBuilder
     }
 
     /**
-     * @param string[] ...$cols
+     * @param string ...$cols
      * @return QueryBuilder
      */
     public function select(string ...$cols): self
@@ -310,7 +310,7 @@ class QueryBuilder
     }
 
     /**
-     * @param string[] ...$cols
+     * @param string ...$cols
      * @return QueryBuilder
      */
     public function orderAsc(string ...$cols): self
@@ -324,7 +324,7 @@ class QueryBuilder
     }
 
     /**
-     * @param string[] ...$cols
+     * @param string ...$cols
      * @return QueryBuilder
      */
     public function orderDesc(string ...$cols): self
